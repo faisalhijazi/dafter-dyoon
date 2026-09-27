@@ -1,0 +1,170 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../views';
+@source '../../app';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Tajawal', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-zinc-50: #fafafa;
+    --color-zinc-100: #f5f5f5;
+    --color-zinc-200: #e5e5e5;
+    --color-zinc-300: #d4d4d4;
+    --color-zinc-400: #a3a3a3;
+    --color-zinc-500: #737373;
+    --color-zinc-600: #525252;
+    --color-zinc-700: #404040;
+    --color-zinc-800: #262626;
+    --color-zinc-900: #171717;
+    --color-zinc-950: #0a0a0a;
+
+    --color-accent: var(--color-neutral-800);
+    --color-accent-content: var(--color-neutral-800);
+    --color-accent-foreground: var(--color-white);
+
+    /* حلول semantic palette */
+    --color-canvas: #F1F5F9;
+    --color-ink: #0F172A;
+    --color-positive: #10B981;
+    --color-negative: #EF4444;
+}
+
+@layer theme {
+    .dark {
+        --color-accent: var(--color-white);
+        --color-accent-content: var(--color-white);
+        --color-accent-foreground: var(--color-neutral-800);
+        --color-canvas: #020617;
+    }
+}
+
+@layer base {
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+
+    .dark *,
+    .dark ::after,
+    .dark ::before {
+        border-color: var(--color-slate-800, currentColor);
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+@layer components {
+    /* Cards & surfaces */
+    .dd-card {
+        @apply rounded-3xl bg-white shadow-[0_2px_14px_-6px_rgb(15_23_42/0.12)] ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800;
+    }
+
+    .dd-soft {
+        @apply rounded-2xl bg-slate-50 dark:bg-slate-800/60;
+    }
+
+    /* Form controls */
+    .dd-input {
+        @apply block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-slate-300;
+    }
+
+    .dd-label {
+        @apply mb-1.5 block text-sm font-medium text-slate-500 dark:text-slate-400;
+    }
+
+    .dd-error {
+        @apply mt-1.5 text-sm text-rose-600;
+    }
+
+    /* Buttons */
+    .dd-btn,
+    .dd-btn-primary,
+    .dd-btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-base font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .dd-btn-primary {
+        @apply bg-slate-900 text-white shadow-lg shadow-slate-900/20 hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100;
+    }
+
+    .dd-btn-ghost {
+        @apply border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300;
+    }
+
+    .dd-icon-btn {
+        @apply inline-flex size-12 items-center justify-center rounded-2xl transition active:scale-95;
+    }
+
+    .dd-fab {
+        @apply fixed bottom-6 z-30 inline-flex items-center gap-3 rounded-3xl bg-slate-900 px-7 py-4 text-lg font-bold text-white shadow-2xl shadow-slate-900/40 transition hover:bg-slate-800 active:scale-95 dark:bg-white dark:text-slate-900;
+        inset-inline-end: max(1rem, calc((100vw - 48rem) / 2 + 1rem));
+    }
+
+    /* Badges */
+    .dd-badge {
+        @apply inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-sm font-medium;
+    }
+
+    .dd-chip {
+        @apply inline-flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold whitespace-nowrap transition;
+    }
+
+    .dd-section-title {
+        @apply flex items-center gap-2 text-base font-medium text-slate-600 before:h-6 before:w-1 before:rounded-full before:bg-current dark:text-slate-300;
+    }
+
+    .no-scrollbar {
+        scrollbar-width: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+    @apply grid gap-2;
+}
+
+[data-flux-label] {
+    @apply !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+    }
+
+    .dd-card {
+        box-shadow: none !important;
+        break-inside: avoid;
+    }
+}

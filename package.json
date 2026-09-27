@@ -1,0 +1,31 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "node scripts/copy-ocr-assets.mjs && vp build",
+        "dev": "vp dev",
+        "ocr:assets": "node scripts/copy-ocr-assets.mjs"
+    },
+    "dependencies": {
+        "@laravel/passkeys": "^0.2.0",
+        "@tailwindcss/vite": "^4.1.11",
+        "@tesseract.js-data/ara": "^1.0.0",
+        "@tesseract.js-data/eng": "^1.0.0",
+        "concurrently": "^10.0.3",
+        "tailwindcss": "^4.0.7",
+        "tesseract.js": "^7.0.0",
+        "vite-plus": "^0.3.0"
+    },
+    "optionalDependencies": {
+        "@laravel/multiplex": "^0.4.1",
+        "@rollup/rollup-linux-x64-gnu": "4.9.5",
+        "@tailwindcss/oxide-linux-x64-gnu": "^4.0.1",
+        "lightningcss-linux-x64-gnu": "^1.29.1"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^6.0.9",
+        "laravel-vite-plugin": "^3.2.0",
+        "vite": "^8.3.1"
+    }
+}
