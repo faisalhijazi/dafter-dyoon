@@ -55,7 +55,7 @@ class PythonNlu
         }
 
         $result = Process::timeout(config('assistant.timeout'))
-            ->env(['PYTHONIOENCODING' => 'utf-8', 'PYTHONUTF8' => '1'])
+            ->env(self::environment())
             ->input(json_encode($payload, JSON_UNESCAPED_UNICODE))
             ->run($command);
 
@@ -66,6 +66,19 @@ class PythonNlu
         }
 
         return $this->resolveAliases($data, $accounts->pluck('name', 'id')->all(), $aliases);
+    }
+
+    /**
+     * Environment for the Python process. On Windows, PHP's built-in server can start children
+     * without SYSTEMROOT, and Python then dies with "failed to get random numbers".
+     */
+    public static function environment(): array
+    {
+        return array_filter([
+            'PYTHONIOENCODING' => 'utf-8',
+            'PYTHONUTF8' => '1',
+            'SYSTEMROOT' => PHP_OS_FAMILY === 'Windows' ? (getenv('SYSTEMROOT') ?: 'C:\\Windows') : null,
+        ]);
     }
 
     /**

@@ -36,8 +36,8 @@ class PlanSeeder extends Seeder
         Plan::updateOrCreate(['slug' => 'pro'], [
             'name' => 'الاحترافية',
             'description' => 'للشركات والمتاجر المتوسطة',
-            'price_monthly' => 29,
-            'price_yearly' => 290,
+            'price_monthly' => 9,
+            'price_yearly' => 99,
             'max_accounts' => null,
             'max_transactions' => null,
             'max_staff' => 10,

@@ -101,7 +101,7 @@ class ModelTrainer
 
         try {
             $result = Process::timeout(300)
-                ->env(['PYTHONIOENCODING' => 'utf-8', 'PYTHONUTF8' => '1'])
+                ->env(PythonNlu::environment())
                 ->run([config('assistant.python'), config('assistant.script'), 'train', '--extra', $extra, '--out', $candidate, '--report', $report]);
 
             if (! $result->successful() || ! is_file($report)) {
